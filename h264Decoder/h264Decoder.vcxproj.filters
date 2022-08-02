@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="d3d11_video_decoder.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="h264_bit_reader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="h264_parser.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="point.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="rect.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="size.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="video_color_space.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="video_decoder.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="h264_dpb.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="h264_level_limits.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="h264_decoder.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="d3d11_video_context_wrapper.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="codec_picture.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="d3d11_texture_wrapper.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="d3d11_picture_buffer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="d3d11_h264_accelerator.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="d3d11_decoder_configurator.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="d3d11_texture_selector.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="accelerated_video_decoder.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d11_video_decoder.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="h264_bit_reader.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="h264_decoder.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="h264_dpb.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="h264_parser.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="point.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="rect.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="size.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="video_codecs.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="video_color_space.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="video_decoder.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="h264_level_limits.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d11_com_defs.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d11_video_context_wrapper.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="codec_picture.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d11_video_decoder_client.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d11_h264_accelerator.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d11_picture_buffer.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d11_texture_wrapper.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ranges.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d11_decoder_configurator.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d11_texture_selector.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="video_pixel_format.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{63dda751-3eb6-4132-bf08-4c15fa10ab08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{f578beaf-b10f-48ef-8a51-777095154659}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
