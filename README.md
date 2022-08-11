@@ -1,2 +1,2 @@
 # D3D11H264Decoder
-h264 parser and decoder 
+h264 parser, h264 decoder and d3d rendering 
