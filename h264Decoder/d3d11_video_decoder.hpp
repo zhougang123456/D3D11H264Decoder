@@ -9,12 +9,13 @@
 #include "d3d11_h264_accelerator.hpp"
 #include "d3d11_texture_selector.hpp"
 #include "d3d11_decoder_configurator.hpp"
+#include "OutputManager.h"
 
 class D3D11VideoDecoder : public VideoDecoder,
                           public D3D11VideoDecoderClient{
 public:
     static std::unique_ptr<VideoDecoder> Create();
-    void Initialize(VideoColorSpace color_space, Size coded_size) override;
+    void Initialize(VideoColorSpace color_space, Size coded_size, HWND hWnd) override;
     void Decode(uint8_t* buffer, int size) override;
 
     D3D11PictureBuffer* GetPicture() override;
@@ -64,6 +65,7 @@ private:
     ComD3D11Device device_;
     ComD3D11DeviceContext device_context_;
     ComD3D11VideoDevice video_device_;
+    OUTPUTMANAGER output_msg_;
 
     // D3D11 version on this device.
     D3D_FEATURE_LEVEL usable_feature_level_;

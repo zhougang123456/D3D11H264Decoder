@@ -58,6 +58,12 @@
     <ClCompile Include="d3d11_texture_selector.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="D3D11NV12Rendering.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="OutputManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="accelerated_video_decoder.hpp">
@@ -132,6 +138,21 @@
     <ClInclude Include="video_pixel_format.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="CommonTypes.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="D3D11NV12Rendering.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="OutputManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="源文件">
@@ -140,5 +161,29 @@
     <Filter Include="头文件">
       <UniqueIdentifier>{f578beaf-b10f-48ef-8a51-777095154659}</UniqueIdentifier>
     </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{d88138c4-6628-44ea-b4ef-17f36838ae40}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="PixelShader.hlsl">
+      <Filter>源文件</Filter>
+    </FxCompile>
+    <FxCompile Include="VertexShader.hlsl">
+      <Filter>源文件</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="D3D11NV12Rendering.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="small.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="D3D11NV12Rendering.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

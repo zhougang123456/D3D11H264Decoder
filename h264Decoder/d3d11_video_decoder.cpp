@@ -15,40 +15,42 @@ std::unique_ptr<VideoDecoder> D3D11VideoDecoder::Create()
     return std::unique_ptr<VideoDecoder>(new D3D11VideoDecoder());
 }
 
-void D3D11VideoDecoder::Initialize(VideoColorSpace color_space, Size coded_size)
+void D3D11VideoDecoder::Initialize(VideoColorSpace color_space, Size coded_size, HWND hWnd)
 {
     code_size_ = coded_size;
     state_ = State::kInitializing;
+    output_msg_.InitOutput(hWnd, code_size_.width(), code_size_.height());
+    device_ = output_msg_.m_Device;
+    device_context_ = output_msg_.m_DeviceContext;
+    //D3D_DRIVER_TYPE DriverTypes[] =
+    //{
+    //    D3D_DRIVER_TYPE_HARDWARE,
+    //    D3D_DRIVER_TYPE_WARP,
+    //    D3D_DRIVER_TYPE_REFERENCE,
+    //};
+    //UINT NumDriverTypes = ARRAYSIZE(DriverTypes);
 
-    D3D_DRIVER_TYPE DriverTypes[] =
-    {
-        D3D_DRIVER_TYPE_HARDWARE,
-        D3D_DRIVER_TYPE_WARP,
-        D3D_DRIVER_TYPE_REFERENCE,
-    };
-    UINT NumDriverTypes = ARRAYSIZE(DriverTypes);
+    //// Feature levels supported
+    //D3D_FEATURE_LEVEL FeatureLevels[] =
+    //{
+    //    D3D_FEATURE_LEVEL_11_0,
+    //    D3D_FEATURE_LEVEL_10_1,
+    //    D3D_FEATURE_LEVEL_10_0,
+    //    D3D_FEATURE_LEVEL_9_1
+    //};
+    //UINT NumFeatureLevels = ARRAYSIZE(FeatureLevels);
 
-    // Feature levels supported
-    D3D_FEATURE_LEVEL FeatureLevels[] =
-    {
-        D3D_FEATURE_LEVEL_11_0,
-        D3D_FEATURE_LEVEL_10_1,
-        D3D_FEATURE_LEVEL_10_0,
-        D3D_FEATURE_LEVEL_9_1
-    };
-    UINT NumFeatureLevels = ARRAYSIZE(FeatureLevels);
-
-    D3D_FEATURE_LEVEL FeatureLevel;
+    //D3D_FEATURE_LEVEL FeatureLevel;
 
     HRESULT hr;
-    for (UINT DriverTypeIndex = 0; DriverTypeIndex < NumDriverTypes; ++DriverTypeIndex)
-    {
-        hr = D3D11CreateDevice(NULL, DriverTypes[DriverTypeIndex], NULL, 0, FeatureLevels, NumFeatureLevels, D3D11_SDK_VERSION, &device_, &FeatureLevel, &device_context_);
-        if (SUCCEEDED(hr))
-        {
-            break;
-        }
-    }
+    //for (UINT DriverTypeIndex = 0; DriverTypeIndex < NumDriverTypes; ++DriverTypeIndex)
+    //{
+    //    hr = D3D11CreateDevice(NULL, DriverTypes[DriverTypeIndex], NULL, 0, FeatureLevels, NumFeatureLevels, D3D11_SDK_VERSION, &device_, &FeatureLevel, &device_context_);
+    //    if (SUCCEEDED(hr))
+    //    {
+    //        break;
+    //    }
+    //}
 
     if (!GetD3D11FeatureLevel(device_, &usable_feature_level_)) {
         std::cout << "D3D11 feature level not supported" << std::endl;
@@ -61,6 +63,7 @@ void D3D11VideoDecoder::Initialize(VideoColorSpace color_space, Size coded_size)
         return;
 
     }
+
     auto video_decoder = CreateD3D11Decoder();
     
     hr = InitializeAcceleratedDecoder(video_decoder, color_space);
@@ -246,42 +249,46 @@ bool D3D11VideoDecoder::OutputResult(const CodecPicture* picture,
     ReceivePictureBufferFromClient(picture_buffer);
 
     ComD3D11Texture2D texture = picture_buffer->Texture();
+    device_context_->CopyResource(output_msg_.m_texture, texture.Get());
+
+    bool Occluded = false;
+    output_msg_.UpdateApplicationWindow(&Occluded);
 
     D3D11_TEXTURE2D_DESC desc;
     texture->GetDesc(&desc);
 
-    desc.Usage = D3D11_USAGE_STAGING;
-    desc.BindFlags = 0;
-    desc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
-    desc.MiscFlags = 0;
-    //desc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
+   // desc.Usage = D3D11_USAGE_STAGING;
+   // desc.BindFlags = 0;
+   // desc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
+   // desc.MiscFlags = 0;
+   // //desc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
 
-    ID3D11Texture2D* des;
-    device_->CreateTexture2D(&desc, NULL, &des);
-    if (!des) {
-        return false;
-    }
-    device_context_->CopyResource(des, texture.Get());
+   // ID3D11Texture2D* des;
+   // device_->CreateTexture2D(&desc, NULL, &des);
+   // if (!des) {
+   //     return false;
+   // }
+   // device_context_->CopyResource(des, texture.Get());
 
-    D3D11_MAPPED_SUBRESOURCE mappedResource;
-    HRESULT hr = device_context_->Map(des, 0, D3D11_MAP_READ, 0, &mappedResource);
+   // D3D11_MAPPED_SUBRESOURCE mappedResource;
+   // HRESULT hr = device_context_->Map(des, 0, D3D11_MAP_READ, 0, &mappedResource);
 
-    size_t imageSize = desc.Width * desc.Height * 4;
-    uint8_t* rgba = (uint8_t*)malloc(imageSize);
-    memset(rgba, 0, imageSize);
-    uint8_t* pData = (uint8_t*)mappedResource.pData;
-   /* for (int i = 0; i < desc.Height; i++) {
-        memcpy(rgba + desc.Width * 4 * i, rgba + i * mappedResource.RowPitch, desc.Width * 4);
-    }*/
-    
-    NV12_T_RGB(desc.Width, desc.Height, pData, pData + mappedResource.RowPitch * desc.Height, rgba);
-    static int image_id = 0;
-    char buf[10] = { 0 };
-    sprintf_s(buf, "%d.bmp", image_id++);
-    saveBmpFile(buf, rgba, imageSize, desc.Width, desc.Height);
-    free(rgba);
-    device_context_->Unmap(des, 0);
-    des->Release();
+   // size_t imageSize = desc.Width * desc.Height * 4;
+   // uint8_t* rgba = (uint8_t*)malloc(imageSize);
+   // memset(rgba, 0, imageSize);
+   // uint8_t* pData = (uint8_t*)mappedResource.pData;
+   ///* for (int i = 0; i < desc.Height; i++) {
+   //     memcpy(rgba + desc.Width * 4 * i, rgba + i * mappedResource.RowPitch, desc.Width * 4);
+   // }*/
+   // 
+   // NV12_T_RGB(desc.Width, desc.Height, pData, pData + mappedResource.RowPitch * desc.Height, rgba);
+   // static int image_id = 0;
+   // char buf[10] = { 0 };
+   // sprintf_s(buf, "%d.bmp", image_id++);
+   // saveBmpFile(buf, rgba, imageSize, desc.Width, desc.Height);
+   // free(rgba);
+   // device_context_->Unmap(des, 0);
+   // des->Release();
     return true;
 }
 
